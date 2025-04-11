@@ -7,18 +7,18 @@ let email =  'test_a'+ date.substring(10,15)+'@i.ua'
 const password = '0807067050';
 let token:string;
 
-test('check healthcheck', async ({ request, page }: { request: APIRequestContext, page: Page }) => {
+test('check healthcheck', async ({ request }: { request: APIRequestContext, page: Page }) => {
 
-  const responseGet = await pwApi.get({request, page}, '/notes/api/health-check')
+  const responseGet = await pwApi.get({request }, '/notes/api/health-check')
   expect(responseGet.status()).toBe(200)
   const respBody = await responseGet.json();
   console.log(respBody)
 
 });
 
-test('check healthcheck axios', async ({page }: { page: Page }) => {
+test('check healthcheck axios', async () => {
   
-  const respGet = await axiosApi.get({page},'https://practice.expandtesting.com/notes/api/health-check')
+  const respGet = await axiosApi.get({},'https://practice.expandtesting.com/notes/api/health-check')
   expect(respGet.status).toBe(200)
   const respBody = await respGet.data;
   console.log(respBody)
