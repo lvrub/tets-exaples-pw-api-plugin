@@ -1,0 +1,16 @@
+- navigation "breadcrumb mb-2":
+  - list:
+    - listitem:
+      - link "Home"
+    - listitem: / Test Cases
+- heading "Practice Test Cases" [level=1]
+- link "Software testing services":
+  - img
+- heading "Login Test Cases" [level=2]:
+  - link "Login Test Cases"
+- paragraph: Essential test cases for automating login functionality, covering successful logins and error scenarios
+- link "Read More"
+- heading "Register Test Cases" [level=2]:
+  - link "Register Test Cases"
+- paragraph: Essential test cases for automating registration functionality, covering successful and error scenarios
+- link "Read More"

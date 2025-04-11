@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "target": "es6",
-    "lib": ["es2021", "dom"],
-    "module": "commonjs",
+    "lib": ["ESNext", "DOM"],
+    "module": "CommonJS",
+    "target": "ESNext",
+    "traceResolution": false,
     "moduleResolution": "node",
     "rootDir": ".",
     "outDir": "./dist",
@@ -13,11 +14,11 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
-    "paths": {
-      "*": ["*"]
-    },
+    // "paths": {
+    //   "*": ["*"]
+    // },
     "types": ["node", "@playwright/test"]
   },
-  "include": ["src/tests/**/*.ts", "./package.json", "src/types/pw-api-plugin.d.ts"],
+  "include": ["src/tests/**/*.ts", "playwright.config.ts", "src/declaration/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

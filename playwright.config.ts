@@ -2,7 +2,6 @@ import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 import path from 'path';
 
-
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -32,6 +31,12 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure',
+  },
+
+  expect: {
+    toMatchAriaSnapshot: {
+      pathTemplate: 'src/resources/{testFileName}-snapshots/{arg}{ext}'
+    }
   },
 
   /* Configure projects for major browsers */
