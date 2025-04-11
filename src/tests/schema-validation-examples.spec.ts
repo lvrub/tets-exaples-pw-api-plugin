@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { pwApi } from 'pw-api-plugin';
 import { validateSchema } from 'playwright-ajv-schema-validator';
 
-test('create user', async ({ request, page }) => {
+test('schema validation for create user', async ({ request, page }) => {
 
   const schemaDoc = 'https://practice.expandtesting.com/notes/api/api-docs/'
 
