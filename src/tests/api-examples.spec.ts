@@ -5,6 +5,7 @@ import { APIRequestContext, Page } from '@playwright/test';
 const date = new Date().getTime().toString()
 let email =  'test_a'+ date.substring(10,15)+'@i.ua'
 const password = '0807067050';
+let token:string;
 
 test('check healthcheck', async ({ request, page }: { request: APIRequestContext, page: Page }) => {
 
@@ -60,10 +61,35 @@ test('login user', async ({ request, page }: { request: APIRequestContext, page:
   
   expect(responsePost.status()).toBe(200);
   const respBody = await responsePost.json();
+  console.log(respBody)
   expect(respBody.message).toContain('Login successful');
-  expect(respBody.data.token).not.toBeNull();
+  token = respBody.data.token;
+  expect(token).not.toBeNull();
 
 });
+
+test('create user note', async ({ request, page }: { request: APIRequestContext, page: Page }) => {
+
+  const responsePost = await pwApi.post({request, page},'https://practice.expandtesting.com/notes/api/notes', {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'x-auth-token': token
+    },
+    form: {
+      title: 'title note',
+      description: 'description note',
+      category: 'Personal'
+    }
+  });
+  
+  expect(responsePost.status()).toBe(200);
+  const respBody = await responsePost.json();
+  console.log(respBody)
+  expect(respBody.message).toContain('Note successfully created');
+  expect(respBody.data.user_id).not.toBeNull();
+
+});
+
 
 test('create user axios', async ({ page }: {page: Page }) => {
  const date = new Date().getTime().toString()
