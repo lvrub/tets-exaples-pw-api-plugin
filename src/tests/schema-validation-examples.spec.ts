@@ -1,10 +1,10 @@
-import { expect, test } from '@playwright/test';
-import { pwApi } from 'pw-api-plugin';
+import { expect } from '@playwright/test';
+import { pwApi, test } from 'pw-api-plugin';
 import { validateSchema } from 'playwright-ajv-schema-validator';
 
 test('schema validation for create user', async ({ request, page }) => {
 
-  const schemaDoc = 'https://practice.expandtesting.com/notes/api/api-docs/'
+  const schemaDocUrl = 'https://practice.expandtesting.com/notes/api/swagger.json';
 
   const date = new Date().getTime().toString()
 
@@ -18,10 +18,11 @@ test('schema validation for create user', async ({ request, page }) => {
       password: '0444000'
     }
   });
-
   expect(responsePost.status()).toBe(201);  
-  
-  await validateSchema({ page }, responsePost, schemaDoc, { endpoint: '/users/register', method: 'post', status: 200 });
+  const responseBodyPost = await responsePost.json();
 
+  const schemaAll = await (await pwApi.get({request, page}, schemaDocUrl)).json();
+  //third paramete can be either schema url or schema object if url doesn't provide schema json object
+  await validateSchema({ page }, responseBodyPost, schemaAll.paths, { endpoint: '/users/register', method: 'post', status: 201 });
 
 });

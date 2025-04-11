@@ -1,1 +1,1 @@
-declare module 'playwright-ajv-schema-validator';
+// declare module 'playwright-ajv-schema-validator';

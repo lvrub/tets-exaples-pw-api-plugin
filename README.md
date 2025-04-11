@@ -17,6 +17,7 @@ To install the required dependencies, run the following commands:
 ```bash
 npm install -D @playwright/test
 npm install -D pw-api-plugin
+npm install -D playwright-ajv-schema-validator
 ```
 
 ## Test Examples
@@ -44,6 +45,38 @@ const responsePost = await pwApi.post({ request, page }, 'https://practice.expan
   }
 });
 ```
+
+## Schema Validation Example
+
+The `schema-validation-examples.spec.ts` file demonstrates how to validate API responses against a schema using the [playwright-ajv-schema-validator](https://github.com/sclavijosuero/playwright-ajv-schema-validator/tree/main) library.
+
+### Key Features
+- Validates the response schema for the `/users/register` endpoint.
+- Uses the Swagger documentation available at `https://practice.expandtesting.com/notes/api/swagger.json`.
+
+### Example Test
+The test ensures that the API response for user registration matches the expected schema:
+
+```typescript
+const responsePost = await pwApi.post({request, page},'https://practice.expandtesting.com/notes/api/users/register', {
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  form: {
+    name: 'testUser'+ date.substring(10,15),
+    email: 'test_a'+ date.substring(10,15)+'@i.ua',
+    password: '0444000'
+  }
+});
+expect(responsePost.status()).toBe(201);
+const responseBodyPost = await responsePost.json();
+
+const schemaAll = await (await pwApi.get({request, page}, schemaDocUrl)).json();
+
+await validateSchema({ page }, responseBodyPost, schemaAll.paths, { endpoint: '/users/register', method: 'post', status: 201 });
+```
+
+For more details, visit the [playwright-ajv-schema-validator documentation](https://github.com/sclavijosuero/playwright-ajv-schema-validator/tree/main).
 
 ## Running Tests
 
