@@ -11,5 +11,7 @@
     "typescript": "^5.8.3",
     "@types/node": "^22.13.13"
   },
-  "scripts": {}
+  "scripts": {
+    "runTest": "npx playwright test @spec"
+  }
 }
