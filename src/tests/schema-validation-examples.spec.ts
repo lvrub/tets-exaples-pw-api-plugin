@@ -22,7 +22,7 @@ test('schema validation for create user', async ({ request, page }) => {
   const responseBodyPost = await responsePost.json();
 
   const schemaAll = await (await pwApi.get({request, page}, schemaDocUrl)).json();
-  //third paramete can be either schema url or schema object if url doesn't provide schema json object
+  //third parameter can be either schema url or schema object if a response from the url doesn't provide schema json object
   await validateSchema({ page }, responseBodyPost, schemaAll.paths, { endpoint: '/users/register', method: 'post', status: 201 });
 
 });
