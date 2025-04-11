@@ -3,11 +3,10 @@ on:
   workflow_dispatch:
     inputs:
       specFile:
-        description: 'The spec file to run (e.g., api-examples.spec.ts)'
+        description: 'The spec file to run (e.g., api-examples.spec.ts). Leave empty to run all tests.'
         required: false
         default: ''
         type: string
-        placeholder: 'All tests will run if not specified'
 jobs:
   test:
     timeout-minutes: 60
@@ -34,4 +33,3 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 2
-# All tests will run if not specified
