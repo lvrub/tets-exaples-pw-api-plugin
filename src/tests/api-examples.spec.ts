@@ -9,7 +9,7 @@ let token:string;
 
 test('check healthcheck', async ({ request, page }: { request: APIRequestContext, page: Page }) => {
 
-  const responseGet = await pwApi.get({request, page},'https://practice.expandtesting.com/notes/api/health-check')
+  const responseGet = await pwApi.get({request, page}, '/notes/api/health-check')
   expect(responseGet.status()).toBe(200)
   const respBody = await responseGet.json();
   console.log(respBody)
@@ -28,7 +28,7 @@ test('check healthcheck axios', async ({page }: { page: Page }) => {
 
 test('create user', async ({ request, page }: { request: APIRequestContext, page: Page }) => {
 
-  const responsePost = await pwApi.post({request, page},'https://practice.expandtesting.com/notes/api/users/register', {
+  const responsePost = await pwApi.post({request, page},'/notes/api/users/register', {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
@@ -49,7 +49,7 @@ test('create user', async ({ request, page }: { request: APIRequestContext, page
 // depend on previous test
 test('login user', async ({ request, page }: { request: APIRequestContext, page: Page }) => {
 
-  const responsePost = await pwApi.post({request, page},'https://practice.expandtesting.com/notes/api/users/login', {
+  const responsePost = await pwApi.post({request, page},'/notes/api/users/login', {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
@@ -70,7 +70,7 @@ test('login user', async ({ request, page }: { request: APIRequestContext, page:
 
 test('create user note', async ({ request, page }: { request: APIRequestContext, page: Page }) => {
 
-  const responsePost = await pwApi.post({request, page},'https://practice.expandtesting.com/notes/api/notes', {
+  const responsePost = await pwApi.post({request, page},'/notes/api/notes', {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'x-auth-token': token

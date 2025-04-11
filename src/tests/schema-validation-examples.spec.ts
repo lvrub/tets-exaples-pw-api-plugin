@@ -1,13 +1,12 @@
-import { expect } from '@playwright/test';
+import { expect, PlaywrightTestArgs } from '@playwright/test';
 import { pwApi, test } from 'pw-api-plugin';
 import { validateSchema } from 'playwright-ajv-schema-validator';
-import { before } from 'node:test';
 
 let schemaAll: any;
 
 test.beforeAll(async ({ playwright }) => {
   const requestContext = await playwright.request.newContext();
-  const schemaDocUrl = 'https://practice.expandtesting.com/notes/api/swagger.json';
+  const schemaDocUrl = '/notes/api/swagger.json';
 
   schemaAll = await(await requestContext.get(schemaDocUrl)).json();
 
@@ -18,7 +17,7 @@ test('schema validation for create user', async ({ request, page }: { request: a
 
   const date = new Date().getTime().toString()
 
-  const responsePost = await pwApi.post({request, page},'https://practice.expandtesting.com/notes/api/users/register', {
+  const responsePost = await pwApi.post({request, page},'/notes/api/users/register', {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
