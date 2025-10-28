@@ -1,9 +1,9 @@
-import { test, expect, BrowserContext, Page } from '@playwright/test';
+import { test, expect, BrowserContext, Page, Browser } from '@playwright/test';
 
 let context: BrowserContext;
 let page: Page;
 
-test.beforeAll(async ({ browser }) => {
+test.beforeAll(async ({ browser }: { browser: Browser  }) => {
    context = await browser.newContext();
    page = await context.newPage();
 });
