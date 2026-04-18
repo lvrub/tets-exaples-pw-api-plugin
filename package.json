@@ -1,8 +1,8 @@
 {
   "devDependencies": {
-    "@playwright/test": "^1.56.1",
-    "playwright-ajv-schema-validator": "^1.0.1",
-    "pw-api-plugin": "^2.0.1"
+    "@playwright/test": "^1.59.1",
+    "playwright-ajv-schema-validator": "^1.0.2",
+    "pw-api-plugin": "^2.1.0"
   },
   "dependencies": {
     "@types/dotenv": "^6.1.1",
@@ -12,6 +12,6 @@
     "typescript": "^5.8.3"
   },
   "scripts": {
-    "runTest": "npx playwright test @spec"
+    "runTest": "npx playwright test"
   }
 }

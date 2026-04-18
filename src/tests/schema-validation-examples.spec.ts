@@ -1,10 +1,10 @@
-import { expect, PlaywrightTestArgs } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { pwApi, test } from 'pw-api-plugin';
 import { validateSchema } from 'playwright-ajv-schema-validator';
 
 let schemaAll: any;
 
-test.beforeAll(async ({ playwright }) => {
+test.beforeAll(async ({ playwright }:any) => {
   const requestContext = await playwright.request.newContext();
   const schemaDocUrl = '/notes/api/swagger.json';
 

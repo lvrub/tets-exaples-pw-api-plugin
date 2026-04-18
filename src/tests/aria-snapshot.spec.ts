@@ -1,18 +1,8 @@
-import { test, expect, BrowserContext, Page, Browser } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 
-let context: BrowserContext;
-let page: Page;
+const test = base.extend({});
 
-test.beforeAll(async ({ browser }: { browser: Browser  }) => {
-   context = await browser.newContext();
-   page = await context.newPage();
-});
-
-test.afterAll(async () => {
-  await context?.close();
-});
-
-test('aria snapshot example', async () => {
+test('aria snapshot example', async ({ page }) => {
   
   await page.goto('https://practice.expandtesting.com/notes/app');
   
@@ -35,21 +25,21 @@ test('aria snapshot example', async () => {
   `);
 });
 
-test('partial aria snapshot matching', async () => {
-  await page.goto('https://practice.expandtesting.com/notes/app');
-  
-  // Example of partial matching - only checking structure without specific text
-  await expect(page.getByRole('main')).toMatchAriaSnapshot(`
-    - main:
-      - heading
-  `);
-});
-
-test('save snapshot to file', async () => {
-  await page.goto('https://practice.expandtesting.com/test-cases');
-  
-  // Save snapshot to a separate file
-  await expect(page.locator('div >#core')).toMatchAriaSnapshot({ 
-    name: 'test-case.aria.yml'
+  test('partial aria snapshot matching', async ({ page }) => {
+    await page.goto('https://practice.expandtesting.com/notes/app');
+    
+    // Example of partial matching - only checking structure without specific text
+    await expect(page.getByRole('main')).toMatchAriaSnapshot(`
+      - main:
+        - heading
+    `);
   });
-});
+
+  test('save snapshot to file', async ({ page }) => {
+    await page.goto('https://practice.expandtesting.com/test-cases');
+    
+    // Save snapshot to a separate file - using main content area to match actual page structure
+    await expect(page.locator('#core')).toMatchAriaSnapshot({ 
+      name: 'test-case.aria.yml'
+    });
+  });
